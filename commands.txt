@@ -1,0 +1,52 @@
+$Name = 'packerImageGallery'
+$ImageName = 'ubuntu-18-04-lts-nginx' 
+
+Get-AzGalleryImageVersion -GalleryName $Name -ResourceGroupName $Name -GalleryImageDefinitionName $imageName | Select-Object -Property id | Format-List
+
+
+$Name = 'MetaPortImageGallery'
+$ImageName = 'metaport-15007156-101000'
+
+Get-AzGalleryImageVersion -GalleryName $Name -ResourceGroupName $Name -GalleryImageDefinitionName $imageName | Select-Object -Property id | Format-List
+
+
+$galleryName = 'MetaPortImageGallery'
+$rgName = 'MetaPortImageGallery'
+
+# Get the object ID for the group
+$groupId = (Get-AzADGroup -DisplayName 'az-dg-image-gallery-readers').Id
+
+# Grant reader access to the gallery
+$params = @{
+  ObjectId           = $groupId
+  RoleDefinitionName = 'Reader'
+  ResourceName       = $galleryName
+  ResourceType       = Microsoft.Compute/galleries
+  ResourceGroupName  = $rgName
+}
+
+New-AzRoleAssignment @params
+
+
+PEjxskpEUm8Jq
+n50fw36v
+
+https://login.microsoftonline.com/53bb403f-c888-40d6-9086-bba1837a3830/oauth2/authorize?client_id=5bab7416-41d7-4963-ab68-aa602040a6bd&response_type=code&redirect_uri=https%3A%2F%2Fwww.microsoft.com%2F
+
+
+https://login.microsoftonline.com/fb2ce636-c68b-4de6-878f-96dc7d4ad5c1/oauth2/authorize?client_id=5bab7416-41d7-4963-ab68-aa602040a6bd&response_type=code&redirect_uri=https%3A%2F%2Fwww.microsoft.com%2F
+
+Step 1: Create a Resource Group
+Step 2: Login using 
+$applicationId = '5bab7416-41d7-4963-ab68-aa602040a6bd'
+$secret = 'KcSJ4toc.6ZB2JrRQ~F.tvySwo4kJ_4-9K' | ConvertTo-SecureString -AsPlainText -Force
+$tenant1 = "02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63"
+$tenant2 = "fb2ce636-c68b-4de6-878f-96dc7d4ad5c1"
+$cred = New-Object -TypeName PSCredential -ArgumentList $applicationId, $secret
+Clear-AzContext
+Connect-AzAccount -ServicePrincipal -Credential $cred  -Tenant "02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63"
+Connect-AzAccount -ServicePrincipal -Credential $cred -Tenant "fb2ce636-c68b-4de6-878f-96dc7d4ad5c1"
+
+
+az provider register --namespace Microsoft.Network
+az provider register --namespace Microsoft.Compute

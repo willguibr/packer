@@ -1,0 +1,40 @@
+Issue 1:
+==> azure-arm: + type -fp ansible
+==> azure-arm: + sudo pip3 install ansible
+==> azure-arm: The directory '/home/packer/.cache/pip/http' or its parent directory is not owned by the current user and the cache has been disabled. Please check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.
+==> azure-arm: The directory '/home/packer/.cache/pip' or its parent directory is not owned by the current user and caching wheels has been disabled. check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.
+    azure-arm: Collecting ansible
+    azure-arm:   Downloading https://files.pythonhosted.org/packages/4a/0b/44b586965bd51135d3915a02d1327fb392843630435cd41d6c89898c5f24/ansible-2.10.0.tar.gz (25.5MB)
+	
+
+Issue 2:
+==> azure-arm: + pushd /tmp/tmp.c9d00nEr4D
+==> azure-arm: + ansible-playbook -i localhost, -c local -e ansible_python_interpreter=/usr/bin/python3 -e @vars_global.yaml -e @vars.yml install.yml
+    azure-arm: /tmp/tmp.c9d00nEr4D ~
+    azure-arm:
+    azure-arm: PLAY [localhost] ***************************************************************
+    azure-arm:
+    azure-arm: TASK [Gathering Facts] *********************************************************
+    azure-arm: ok: [localhost]
+    azure-arm:
+    azure-arm: TASK [Get ubuntu groups] *******************************************************
+    azure-arm: fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["groups", "ubuntu"], "delta": "0:00:00.019221", "end": "2020-10-06 00:15:30.898177", "msg": "non-zero return code", "rc": 1, "start": "2020-10-06 00:15:30.878956", "stderr": "groups: ‘ubuntu’: no such user", "stderr_lines": ["groups: ‘ubuntu’: no such user"], "stdout": "", "stdout_lines": []}
+    azure-arm:
+    azure-arm: PLAY RECAP *********************************************************************
+    azure-arm: localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+    azure-arm:
+    azure-arm: WARNING! The waagent service will be stopped.
+    azure-arm: WARNING! Cached DHCP leases will be deleted.
+    azure-arm: WARNING! root password will be disabled. You will not be able to login as root.
+    azure-arm: WARNING! /etc/resolv.conf will NOT be removed, this is a behavior change to earlier versions of Ubuntu.
+    azure-arm: WARNING! packer account and entire home directory will be deleted.
+==> azure-arm: Querying the machine's properties ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-35un9a0zv0'
+==> azure-arm:  -> ComputeName       : 'pkrvm35un9a0zv0'
+==> azure-arm:  -> Managed OS Disk   : '/subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980/resourceGroups/PKR-RESOURCE-GROUP-35UN9A0ZV0/providers/Microsoft.Compute/disks/pkros35un9a0zv0'
+==> azure-arm: Querying the machine's additional disks properties ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-35un9a0zv0'
+==> azure-arm:  -> ComputeName       : 'pkrvm35un9a0zv0'
+==> azure-arm: Powering off machine ...
+==> azure-arm:  -> ResourceGroupName : 'pkr-Resource-Group-35un9a0zv0'
+==> azure-arm:  -> ComputeName       : 'pkrvm35un9a0zv0'

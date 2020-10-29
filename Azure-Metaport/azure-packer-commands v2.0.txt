@@ -1,0 +1,43 @@
+➜  ~ az group create -n metaResourceGroup -l canadacentral
+{
+  "id": "/subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980/resourceGroups/metaResourceGroup",
+  "location": "canadacentral",
+  "managedBy": null,
+  "name": "metaResourceGroup",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+➜  ~ az ad sp create-for-rbac --query "{ client_id: appId, client_secret: password, tenant_id: tenant }"
+Creating a role assignment under the scope of "/subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980"
+  Retrying role assignment creation: 1/36
+  Retrying role assignment creation: 2/36
+{
+  "client_id": "059eeacc-eefc-4c44-8d65-5b0f5bed2a63",
+  "client_secret": "YI35.F~RZ4vj-6CB0I9F8FYs6MY7ix8UeO",
+  "tenant_id": "02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63"
+}
+➜  ~ az account show --query "{ subscription_id: id }"
+{
+  "subscription_id": "4936dcb4-e2aa-459f-b44f-27eb8c9e3980"
+}
+➜  ~
+
+$env:ARM_CLIENT_ID='d42b4c1a-dd3e-4d1b-9845-d70d01cb8f92'
+$env:ARM_CLIENT_SECRET='oik3MszgOtb.20DCSLVa-1fVnqXPbx_Q54'
+$env:ARM_SUBSCRIPTION_ID='4936dcb4-e2aa-459f-b44f-27eb8c9e3980'
+$env:ARM_TENANT_ID='02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63'
+$env:MANAGED_IMAGE_NAME='metaport'
+$env:RESOURCE_GROUP_NAME='metaResourceGroup'
+
+
+export ARM_CLIENT_ID=30e14fa4-abcb-472c-b33d-530973f0fe6c
+export ARM_CLIENT_SECRET=ulpdQUlLCgrvv48~r9Fl_3kiS4VqkzM.R0
+export ARM_SUBSCRIPTION_ID=4936dcb4-e2aa-459f-b44f-27eb8c9e3980
+export ARM_TENANT_ID=02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63
+export MANAGED_IMAGE_NAME=metaport
+export RESOURCE_GROUP_NAME=metaResourceGroup
+
+az vm create --resource-group metaResourceGroup --name metaport --image metaport --admin-username mpadmin --admin-password n50fw36v

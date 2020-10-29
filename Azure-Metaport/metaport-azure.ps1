@@ -1,0 +1,6 @@
+$env:ARM_CLIENT_ID='e6d0be4d-4f7a-448f-8138-63c42aa9e424'
+$env:ARM_CLIENT_SECRET='c8lA16k-i7TZgbA7Az5zntHeLLtFELKr5A'
+$env:ARM_SUBSCRIPTION_ID='4936dcb4-e2aa-459f-b44f-27eb8c9e3980'
+$env:ARM_TENANT_ID='02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63'
+$env:MANAGED_IMAGE_NAME='metaPackerImage'
+$env:RESOURCE_GROUP_NAME='metaResourceGroup'

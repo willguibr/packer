@@ -1,0 +1,51 @@
+{
+    "variables": {
+        "img-ver": "{{isotime \"200726-1100\"}}",
+        "azure_subscription_id": "{{env `AZURE_SUBSCRIPTION_ID`}}",
+        "azure_client_id": "{{env `AZURE_CLIENT_ID`}}",
+        "azure_client_secret": "{{env `AZURE_CLIENT_SECRET`}}",
+        "azure_tenant_id": "{{env `AZURE_TENANT_ID`}}",
+        "gallery_resource_group": "{{env `GALLERY_RESOURCE_GROUP`}}",
+        "managed_image_resource_group": "{{env `MANAGED_IMAGE_RESOURCE_GROUP`}}",
+        "managed_image_name": "{{env `MANAGED_IMAGE_NAME`}}",
+        "gallery_name": "{{env `GALLERY_NAME`}}",
+        "image_version": "{{env `IMAGE_VERSION`}}"
+    },
+    "builders": [
+        {
+            "type": "azure-arm",
+            "subscription_id": "{{user `azure_subscription_id`}}",
+            "client_id": "{{user `azure_client_id`}}",
+            "client_secret": "{{user `azure_client_secret`}}",
+            "tenant_id": "{{user `azure_tenant_id`}}",
+            "ssh_username": "ubuntu",
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "18.04-LTS",
+            "location": "Canada Central",
+            "vm_size": "Standard_D2s_v3",
+            "shared_image_gallery_destination": {
+                "resource_group": "{{user `gallery_resource_group`}}",
+                "gallery_name": "{{user `gallery_name`}}",
+                "image_name": "{{user `managed_image_name`}}",
+                "image_version": "{{user `image_version`}}",
+                "replication_regions": ["canadacentral", "northeurope"]
+            },
+            "managed_image_name": "metaport-{{user `img-ver`}}",
+            "managed_image_resource_group_name": "{{user `managed_image_resource_group`}}"
+        }
+    ],
+            "provisioners": [
+                {
+                    "type": "shell",
+                    "pause_before": "30s",
+                    "inline": [
+                        "mkdir build",
+                        "wget -q -Obuild/build_mp.sh https://s3.amazonaws.com/public.nsof.io/lxd/metaport-install.sh",
+                        "chmod +x build/build_mp.sh",
+                        "./build/build_mp.sh"
+                    ]
+                }
+            ]
+        }

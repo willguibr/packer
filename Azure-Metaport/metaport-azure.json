@@ -1,0 +1,41 @@
+{
+  "builders": [{
+    "type": "azure-arm",
+
+    "client_id": "63608611-9274-4136-ba28-963ac5faf685",
+    "client_secret": "QY.HI.j18w~ObnMwKQ.O~kZ9F9zvgLQu_a",
+    "tenant_id": "02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63",
+    "subscription_id": "4936dcb4-e2aa-459f-b44f-27eb8c9e3980",
+
+    "managed_image_resource_group_name": "metaResourceGroup",
+    "managed_image_name": "metaPackerImage",
+
+    "os_type": "Linux",
+    "image_publisher": "Canonical",
+    "image_offer": "UbuntuServer",
+    "image_sku": "20.04-LTS",
+    "ssh_username": "ubuntu",
+    "ssh_password": "",
+
+    "azure_tags": {
+        "dept": "Engineering",
+        "task": "Image deployment"
+    },
+
+    "location": "Canada Central",
+    "vm_size": "Standard_D2s_v3"
+  }],
+  "provisioners": [{
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "sudo su",
+      "mkdir build",
+      "wget -q -Obuild/build_mp.sh https://s3.amazonaws.com/public.nsof.io/lxd/metaport-install.sh",
+      "chmod +x build/build_mp.sh",
+      "./build/build_mp.sh"
+
+    ],
+    "inline_shebang": "/bin/sh -x",
+    "type": "shell"
+  }]
+}

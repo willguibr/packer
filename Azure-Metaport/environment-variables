@@ -1,0 +1,20 @@
+$env:ARM_CLIENT_ID='6141aa10-98f2-410b-91cb-fcbe3bc72e42'
+$env:ARM_CLIENT_SECRET='uX7GKnlwBB-K~4MHNBl7WqFxjSd1QdIjoU'
+$env:ARM_SUBSCRIPTION_ID='4936dcb4-e2aa-459f-b44f-27eb8c9e3980'
+$env:ARM_TENANT_ID='02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63'
+$env:MANAGED_IMAGE_NAME='ubuntu-18-04-lts-nginx'
+$env:RESOURCE_GROUP_NAME='packerImageBuilds'
+
+az group create --location canadacentral --name packerImageBuilds --tags 'Environment=Dev' 'Description=Images produced by Packer builds'
+
+az ad sp create-for-rbac -n "Packer-SGIO-Visual-Studio-Subscription-Only" --role contributor --scopes /subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980
+
+
+az vm create \
+    --resource-group myResourceGroup \
+    --name nginx-server \
+    --image packerImageBuilds \
+    --admin-username azureuser \
+    --generate-ssh-keys
+	
+az vm create --resource-group packerImageBuilds --name nginx-server --image ubuntu-18-04-lts-nginx --admin-username azureuser --generate-ssh-keys

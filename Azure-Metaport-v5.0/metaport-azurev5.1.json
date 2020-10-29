@@ -1,0 +1,44 @@
+{
+    "variables": {
+      "client_id": "{{env `ARM_CLIENT_ID`}}",
+      "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+      "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+      "tenant_id": "{{env `ARM_TENANT_ID`}}",
+      "managed_image_name": "{{env `MANAGED_IMAGE_NAME`}}",
+      "resource_group_name": "{{env `RESOURCE_GROUP_NAME`}}"
+    },
+    "builders": [
+      {
+        "type": "azure-arm",
+        "client_id": "{{user `client_id`}}",
+        "client_secret": "{{user `client_secret`}}",
+        "tenant_id": "{{user `tenant_id`}}",
+        "subscription_id": "{{user `subscription_id`}}",
+        "os_type": "Linux",
+        "image_publisher": "Canonical",
+        "image_offer": "UbuntuServer",
+        "image_sku": "18.04-LTS",
+        "location": "Canada Central",
+        "vm_size": "Standard_B1s",
+        "managed_image_resource_group_name": "{{user `resource_group_name` }}",
+        "managed_image_name": "{{user `managed_image_name`}}",
+        "async_resourcegroup_delete": true
+      }
+    ],
+        "provisioners": [{
+        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "inline": [
+          "sudo useradd ubuntu -d /home/ubuntu",
+          "sudo ln -s /home/ubuntu /home/mpadmin",
+          "sudo usermod -aG sudo ubuntu",
+          "sudo mkdir build",
+          "sudo wget -q -Obuild/build_mp.sh https://meta-amis.s3.ca-central-1.amazonaws.com/build_mp.sh",
+          "sudo chmod +x build/build_mp.sh",
+          "sudo ./build/build_mp.sh",
+          "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+        ],
+        "inline_shebang": "/bin/sh -x",
+        "type": "shell"
+      }
+    ]
+  }

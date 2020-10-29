@@ -1,0 +1,53 @@
+➜  ~ az group create -n metaPortRG -l canadacentral
+az group create --location canadacentral --name metaportImageBuilds --tags 'Environment=Dev' 'Description=Images produced by Packer builds'
+{
+  "id": "/subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980/resourceGroups/metaResourceGroup",
+  "location": "canadacentral",
+  "managedBy": null,
+  "name": "metaResourceGroup",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+➜  ~ az ad sp create-for-rbac --query "{ client_id: appId, client_secret: password, tenant_id: tenant }"
+Creating a role assignment under the scope of "/subscriptions/4936dcb4-e2aa-459f-b44f-27eb8c9e3980"
+  Retrying role assignment creation: 1/36
+  Retrying role assignment creation: 2/36
+{
+  "client_id": "059eeacc-eefc-4c44-8d65-5b0f5bed2a63",
+  "client_secret": "YI35.F~RZ4vj-6CB0I9F8FYs6MY7ix8UeO",
+  "tenant_id": "02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63"
+}
+➜  ~ az account show --query "{ subscription_id: id }"
+{
+  "subscription_id": "4936dcb4-e2aa-459f-b44f-27eb8c9e3980"
+}
+➜  ~
+
+$env:AZURE_CLIENT_ID='8c8bebe8-4820-4576-8660-d21addd6a7e4'
+$env:AZURE_CLIENT_SECRET='goTsbEUAp7cltP5Tnlt3LVKa~Qmr5dj74X'
+$env:AZURE_SUBSCRIPTION_ID='4936dcb4-e2aa-459f-b44f-27eb8c9e3980'
+$env:AZURE_TENANT_ID='02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63'
+$env:MANAGED_IMAGE_NAME='metaport-200726-1100'
+$env:GALLERY_NAME='MetaPortImageGallery'
+$env:GALLERY_RESOURCE_GROUP='MetaPortImageGallery'
+$env:MANAGED_IMAGE_RESOURCE_GROUP='metaportImageBuilds'
+$env:IMAGE_VERSION='200726-1100'
+
+$env:AZURE_CLIENT_ID='8c8bebe8-4820-4576-8660-d21addd6a7e4'
+$env:AZURE_CLIENT_SECRET='goTsbEUAp7cltP5Tnlt3LVKa~Qmr5dj74X'
+$env:AZURE_SUBSCRIPTION_ID='4936dcb4-e2aa-459f-b44f-27eb8c9e3980'
+$env:AZURE_TENANT_ID='02ddc0c2-02a1-40f0-b91d-f1ae13bd1f63'
+$env:MANAGED_IMAGE_NAME='metaport-200726-1100'
+$env:RESOURCE_GROUP_NAME='metaportImageBuilds'
+
+az vm create --resource-group metaportImageBuilds --name metaport --image metaport-201007-2012 --admin-username mpadmin --generate-ssh-keys
+
+
+Application (client) ID: 666547d9-88af-40f8-a4bd-f159231e6b9b
+
+Proofpoint Meta Secret: m_qsQA6XCxbIa2Tw.4606Uh6mQ~B2c2k_0
+
+https://login.microsoftonline.com/<Tenant 2 ID>/oauth2/authorize?client_id=<Application (client) ID>&response_type=code&redirect_uri=https%3A%2F%2Fwww.microsoft.com%2F

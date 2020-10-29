@@ -1,0 +1,50 @@
+    azure-arm:
+    azure-arm: TASK [Disable metaport-conn-keeper service (deprecated)] ***********************
+    azure-arm: fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["systemctl", "disable", "metaport-conn-keeper"], "delta": "0:00:00.007332", "end": "2020-10-07 20:18:31.977224", "msg": "non-zero return code", "rc": 1, "start": "2020-10-07 20:18:31.969892", "stderr": "Failed to disable unit: Unit file metaport-conn-keeper.service does not exist.", "stderr_lines": ["Failed to disable unit: Unit file metaport-conn-keeper.service does not exist."], "stdout": "", "stdout_lines": []}
+    azure-arm: ...ignoring
+    azure-arm:
+    azure-arm: TASK [Stop metaport-conn-keeper service (deprecated)] **************************
+    azure-arm: fatal: [localhost]: FAILED! => {"changed": false, "msg": "Could not find the requested service metaport-conn-keeper: host"}
+    azure-arm: ...ignoring
+    azure-arm:
+    azure-arm: TASK [Install metaport-conn-keeper files] **************************************
+    azure-arm: changed: [localhost] => (item={'src': './keeper/metaport-conn-keeper.py', 'dest': '/usr/local/bin/metaport-conn-keeper.py'})
+    azure-arm: changed: [localhost] => (item={'src': './keeper/metaport-conn-keeper@.service', 'dest': '/lib/systemd/system/metaport-conn-keeper@.service'})
+    azure-arm:
+    azure-arm: TASK [Restart metaport-conn-keeper service] ************************************
+    azure-arm: changed: [localhost]
+    azure-arm:
+    azure-arm: TASK [Enable metaport-conn-keeper service] *************************************
+    azure-arm: changed: [localhost]
+    azure-arm:
+    azure-arm: TASK [Locate meta networks provided netplan file exists] ***********************
+    azure-arm: ok: [localhost]
+    azure-arm:
+	
+	
+    azure-arm: TASK [Delete former image (if exists)] *****************************************
+    azure-arm: fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["lxc", "image", "delete", "nsof-epop"], "delta": "0:00:00.091457", "end": "2020-10-07 20:18:58.751574", "msg": "non-zero return code", "rc": 1, "start": "2020-10-07 20:18:58.660117", "stderr": "Error: not found", "stderr_lines": ["Error: not found"], "stdout": "", "stdout_lines": []}
+    azure-arm: ...ignoring
+    azure-arm:
+    azure-arm: TASK [Import image into LXD] ***************************************************
+    azure-arm: changed: [localhost]
+    azure-arm:
+    azure-arm: TASK [Remove tmp image file] ***************************************************
+    azure-arm: changed: [localhost]
+    azure-arm:
+    azure-arm: TASK [Test container presence] *************************************************
+    azure-arm: fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["lxc", "info", "epop1"], "delta": "0:00:00.013777", "end": "2020-10-07 20:19:04.041513", "msg": "non-zero return code", "rc": 1, "start": "2020-10-07 20:19:04.027736", "stderr": "Error: not found", "stderr_lines": ["Error: not found"], "stdout": "", "stdout_lines": []}
+    azure-arm: ...ignoring
+    azure-arm:
+	
+	
+	
+	
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution Ubuntu 18.04 on host 127.0.0.1 should use
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with
+prior Ansible releases. A future Ansible release will default to using the
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled
+by setting deprecation_warnings=False in ansible.cfg.
